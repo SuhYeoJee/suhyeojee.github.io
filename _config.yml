@@ -73,7 +73,7 @@ netease_comment: false
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "나쁜 코드 연구소"
+sidebar-about-description: ""
 sidebar-avatar: img/avatar-467.jpg # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
