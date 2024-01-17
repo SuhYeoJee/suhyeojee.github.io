@@ -1,4 +1,12 @@
-***
+---
+layout: post
+title: "다음메일DB저장"
+subtitle: "24.01.15 ~ "
+author: "Hux"
+header-style: text
+published: false
+tags: ['python','email','decoding']
+---
 
 회사 다닐 때 갈겨쓴 코드 정리를 좀 해보려 한다. 
 *~~더 이상 떠올리지 못하게 되기 전에~~*  
@@ -34,5 +42,35 @@
 - ~~DB 전송: 파라미코로 회사 서버에 쐈는데 없으니까 생략~~
 
 ***
+메일 객체를 가져오기 위해 poplib의 POP3_SSL 함수를 사용한다. 
 
-24.01.15 작성중
+``` python
+def getMailClient(id,pw,server:str ='pop.naver.com'):
+
+    mailClient = poplib.POP3_SSL(server, port=995)
+    mailClient.user(id)
+    mailClient.pass_(pw)
+
+    return mailClient
+```
+
+사용하는 메일 서비스에서 POP3 사용설정을 하지 않았다면 POP/SMTP settings 관련 오류가 발생할 수 있다.
+
+
+많은 문제가 있었던 부분이다. 
+
+``` python
+latestMailNo = mailClient.stat()[0]
+```
+
+문서에서 stat 함수의 설명은 다음과 같다.
+[POP3.stat()](https://docs.python.org/ko/3/library/poplib.html#poplib.POP3.stat "이 정의에 대한 퍼머링크")
+```
+우편함 상태를 가져옵니다. 결과는 2개의 정수의 튜플입니다: `(message count, mailbox size)`.
+```
+
+즉 위 코드에서 반환하는 값은 현재 메시지 수 이며, 이메일을 삭제했다면 변할 수 있다. 
+
+~~이걸 냅다 식별자로 써버린 과거의 나~~
+
+24.01.17 작성중
