@@ -4,6 +4,7 @@ title:      "깃블로그 포스트 헤더 작성"
 navcolor: invert
 catalog: true
 hidden: true
+header-mask: 0.3
 tags:
     - HOWTO
     - BLOG
@@ -47,6 +48,7 @@ header-style: img
 |catalog|태그 검색 포함 여부|true|
 |published|발행 여부|true|
 |header-img|이미지 지정|블로그 메인테마|
+|header-mask|배경 불투명도|0|
 |tags|리스트로 태그 나열|-|
 |iframe|타이틀에 아이프레임 넣기|-|
 |navcolor|네비게이션 컬러|-|
