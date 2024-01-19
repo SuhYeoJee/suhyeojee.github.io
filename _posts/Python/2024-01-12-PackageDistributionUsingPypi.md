@@ -115,7 +115,7 @@ API tokens 메뉴의 ADD API token 버튼을 클릭해서 토큰 생성페이지
 토큰 이름을 입력하고, 토큰의 적용범위를 선택한다.
 이름은 본인이 구분할 수 있는 것으로 자유롭게 작성하고, 범위는 등록되어있는 프로젝트를 선택하거나 전체 프로젝트를 선택할 수 있다. 
 
-![](/img/in-post/Python/240112_Pypi/Pasted image 20240112135823.png)
+![](/img/in-post/Python/240112_Pypi/pypiToken.png)
 
 
 
@@ -178,7 +178,7 @@ twine upload -r pypi dist/*
 
 실행결과  
 
-![](/img/in-post/Python/240112_Pypi/Pasted image 20240112120016.png)
+![](/img/in-post/Python/240112_Pypi/uploaded.png)
 
 
 ## 등록한 패키지 확인
@@ -190,7 +190,7 @@ pip을 사용해서 등록한 패키지를 다운받는다.
 pip install igzg
 ```
 
-![](/img/in-post/Python/240112_Pypi/Pasted image 20240112142010.png)
+![](/img/in-post/Python/240112_Pypi/downloaded.png)
 
 > 동작 확인
 
@@ -213,4 +213,4 @@ INSERT INTO `tableName` (`data1`,`data2`) VALUES ('value1','value2') ON DUPLICAT
 
 이걸로 어디에서나 이것저것 모듈을 사용할 수 있게 되었다.
 
-![](/img/in-post/Python/240112_Pypi/Pasted image 20240112144859.png)
+![](/img/in-post/Python/240112_Pypi/pypiPage.png)
