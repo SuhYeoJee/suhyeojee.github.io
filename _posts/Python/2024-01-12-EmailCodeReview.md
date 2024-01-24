@@ -127,16 +127,7 @@ msg = email.message_from_bytes(b'\n'.join(mailClient.retr(idx)[1]))
 
 ### 문자열 디코딩
 
-디코딩 함수는 두 가지로 작성했다. ~~오류가 났기 때문이다~~  
-누군가는 문자열을 인코딩한 뒤에 작은 단위로 잘라서 보냈고,  
-누군가는 작은 단위로 자른 뒤에 각각을 인코딩해서 보냈다.  
-
-이걸 구분할 아이디어가 없어서 그냥 함수를 2종류 쓰고 try except 잡았다.  
-어차피 실제로 디코딩 하는 부분은 동일하다. 
-
-### decodeBytes
-
-우선 디코딩할 바이트 스트링부터 살펴보면 다음과 같다. 
+디코딩할 바이트 스트링을 살펴보면 다음과 같다. 
 ```
 =?euc-kr?B?aVBob25lv6G8rSCzqsDHIMOjseKwoSC68ciwvLrIrbXHvvq9wLTPtNku?=
 ```
@@ -144,7 +135,75 @@ msg = email.message_from_bytes(b'\n'.join(mailClient.retr(idx)[1]))
 1. `=?`로 시작하고 `?=`로 끝난다.  
 2. 사용한 인코딩을 순서대로 `?`로 구분해서 앞쪽에 나열한다.  
 
-따라서 바이트 스트링을 받아서 디코딩 하는 함수는 다음과 같이 작성했다. 
+*그러나 이 바이트 스트링이 한 번에 디코딩 될 것인지는 알 수 없다..*  
+누군가는 문자열을 작은 단위로 **자른 뒤**에 각각을 **인코딩**해서 보냈고,  
+누군가는 문자열을 **인코딩한 뒤**에 결과를 작은 단위로 **잘라서** 보냈기 때문이다..
+
+> 문자열을 자른 뒤 인코딩한 메일 제목
+
+```
+=?UTF-8?B?W+uEpOydtOuyhO2OmOydtF0g6rKw7KCc7ZWY7Iug?=      
+#[네이버페이] 결제하신
+
+=?UTF-8?B?IOuCtOyXreydhCDslYjrgrTtlbTrk5zrpr3ri4jri6Qu?=  
+# 내역을 안내해드립니다.
+```
+
+
+> 인코딩 한 뒤 결과를 자른 메일 제목
+
+```
+=?utf-8?B?W+uEpeyKqF0g6rKw7KCcIO2ZleyduCDrqZTsnbzsnoXri4jr?= 
+#[넥슨] 결제 확인 메일입니�
+
+=?utf-8?B?i6Qu?=
+#��.
+```
+
+
+이걸 구분할 아이디어가 없어서 그냥 함수를 2종류 쓰고 try except 잡았다.  
+어차피 실제로 디코딩 하는 부분은 동일하다. 
+
+~~지금 드는 생각으로는 둘다  디코딩하기 전에 합하면 되지 않나 싶은데 분명 해봤던 것 같다.  
+왜 안됬을지는 다음에 다시 알아보자.~~
+
+***
+
+### mergeAndDecode & decodeAndMerge
+
+
+작성한 두 가지 함수는 다음과 같다. 
+인자로 넘겨받은 바이트스트링을 정규식으로 자르고 실제 디코딩을 진행하는 **decodeBytes** 함수에 전달한다.   
+  
+- decodeAndMerge: =?로 시작하고 ?=로 끝나는 디코딩할 부분을 추출해서 반복문
+
+``` python
+def decodeAndMerge(oriBytesToDecode):
+    bytesToDecodeList = re.findall(r"(=\?\S+\?\S\?\S+\?=)",oriBytesToDecode)
+    if bytesToDecodeList == []: raise
+    decodedResult = ''
+    for bytesToDecode in bytesToDecodeList:
+        decodedResult += decodeBytes (bytesToDecode)
+    return decodedResult
+
+```
+
+- mergeAndDecode: 디코딩할 내용 부분과 인코딩 목록을 정규식으로 추출하고 조립
+
+``` python
+def mergeAndDecode(oriBytesToDecode):
+    bytesToDecode = ''.join(re.findall(r"=\?\S+\?\S\?(\S+)\?=",oriBytesToDecode))
+    prefix = re.findall(r"(=\?\S+\?\S\?)",oriBytesToDecode)[0]
+    bytesToDecode = prefix + bytesToDecode + "?="
+    decodedResult = decodeBytes (bytesToDecode)
+    return decodedResult
+```
+
+***
+
+### decodeBytes
+
+바이트 스트링을 받아서 실제로 디코딩을 수행하는 함수는 다음과 같이 작성했다. 
 
 ``` python
 def decodeBytes(bytesToDecode):
@@ -163,5 +222,8 @@ def decodeBytes(bytesToDecode):
     return bytesToDecode
 ```
 
+~~호들갑 떤 것에 비해서 상당히 심플하다.~~
+
 ***
-24.1.21 작성중
+
+24.1.24 작성중
