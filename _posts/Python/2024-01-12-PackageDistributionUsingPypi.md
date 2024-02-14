@@ -2,7 +2,6 @@
 layout: post
 title: "Pypi 패키지 배포 - [API token 사용]"
 subtitle: "『 Username/Password authentication is no longer supported. 』"
-author: "Noxa"
 header-img: "img/post-bg-css.jpg"
 header-img-credit: "@WebdesignerDepot"
 header-img-credit-href: "medium.com/@WebdesignerDepot/poll-should-css-become-more-like-a-programming-language-c74eb26a4270"
