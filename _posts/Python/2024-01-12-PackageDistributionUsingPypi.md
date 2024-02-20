@@ -186,7 +186,7 @@ twine upload -r pypi dist/*
 
 pip을 사용해서 등록한 패키지를 다운받는다.
 ```
-pip install igzg
+pip install --upgrade igzg
 ```
 
 ![](/img/in-post/Python/240112_Pypi/downloaded.png)
