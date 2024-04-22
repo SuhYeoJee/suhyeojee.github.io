@@ -10,7 +10,7 @@ tags:
 ---
 
 Python Enhancement Proposal #8. 
-일관성은 항상 중요한 문제다. 앞으로 코드를 쓸 때는 신경써서 써보자..  
+일관성은 항상 중요한 문제다.  앞으로 코드를 쓸 때는 신경써서 써보자..  
 
 - 네이밍: 
 	- 함수, 변수, 속성: `lowercase_underscore`
