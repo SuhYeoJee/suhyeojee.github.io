@@ -1,10 +1,10 @@
 # Site settings
-title: bayaheuro #archive
-SEOTitle: 바야흐로 | bayaheuro
+title: RoToRoTo #archive
+SEOTitle: 로토로토
 header-img: img/home-bg-g.jpg
 email: suhyeojee@gmail.com
-description: "SuhYeoJee Blog, 바야흐로"
-keyword: "SuhYeoJee Blog, bayaheuro, 바야흐로"
+description: "로토로토"
+keyword: "SuhYeoJee Blog, RoToRoTo, 로토로토"
 #url: "https://huangxuan.me" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
